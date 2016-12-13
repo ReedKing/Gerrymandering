@@ -27,9 +27,10 @@ Main_Data$Id <- Main_Data$id
 Main_Data$id <- NULL
 Main_Data <- left_join(Main_Data, NCData, by = c("Id"))
 
-Main_Data[,9:432] <- lapply(Main_Data[,9:432], function(x){
-  as.numeric(levels(x))[x]
-  })
+# Need to return to this, something in my apply is making it hang, for now just subset and do each as.numeric individually 
+#Main_Data[,9:432] <- lapply(Main_Data[,9:432], function(x){
+#  as.numeric(levels(x))[x]
+#  })
 
 ## Map to Test ----
 
