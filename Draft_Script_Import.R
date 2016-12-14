@@ -62,7 +62,7 @@ tempdata <- left_join(NCPolygons@data, Main_Data, by = c("GEOID"="Id")) %>%
 NCPolygons@data <- tempdata
 NCPolygons$Old <- as.numeric(NCPolygons$Total..Estimate..AGE...75.years.and.over)
 
-Bubble <- paste0("GEOID: ", NCPolygons$Id, "<br>", "Percent of Population over 75 Years Old:", NCPolygons$Old)
+Bubble <- paste0("GEOID: ", OldPeople$Id, "<br>", "Percent of Population over 75 Years Old:", NCPolygons$Old)
 pallet <- colorNumeric(
   palette = "YlGnBu",
   domain = NCPolygons$Old
@@ -71,15 +71,10 @@ pallet <- colorNumeric(
 LeafletMap <- leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>%
   addPolygons(data = NCPolygons,
-              color = "grey50",
+              color = "#b2aeae",
               fillColor = ~pallet(Old),
               fillOpacity = .7,
               weight = 1,
               smoothFactor = .2,
-              popup = Bubble) %>%
-  addLegend(colors = pallet, 
-            values = OldPeople$Old,
-            position = "bottomright",
-            title = "Percentage of Population over 75 Years Old",
-            labFormat = labelFormat(suffix = "%"))
+              popup = Bubble)
 LeafletMap
