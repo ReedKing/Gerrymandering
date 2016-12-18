@@ -68,7 +68,7 @@ pallet <- colorNumeric(
   domain = NCPolygons$Old
 )
 
-LeafletMap <- leaflet() %>%
+LeafletMapOld <- leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>%
   addPolygons(data = NCPolygons,
               color = "#b2aeae",
@@ -77,4 +77,21 @@ LeafletMap <- leaflet() %>%
               weight = 1,
               smoothFactor = .2,
               popup = Bubble)
-LeafletMap
+
+NCPolygons$Income <- as.numeric(NCPolygons$Total..Estimate..Median.income..dollars.)
+Bubble <- paste0("GEOID: ", OldPeople$Id, "<br>", "Median Income:", NCPolygons$Income)
+pallet <- colorNumeric(
+  palette = "YlGnBu",
+  domain = NCPolygons$Income
+)
+
+LeafletMapIncome <- leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = NCPolygons,
+              color = "#b2aeae",
+              fillColor = ~pallet(Income),
+              fillOpacity = .7,
+              weight = 1,
+              smoothFactor = .2,
+              popup = Bubble)
+LeafletMapIncome
