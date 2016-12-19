@@ -18,7 +18,7 @@ library(leaflet)
 # set key, grab tract spatial and geotag data
 api.key.install(key = "1a66d0d3b2a73f7877417f78b20796654ee0e6ff")
 tigcounties <- counties(state = "NC", cb = TRUE)
-NCgeo <- geo.make(state = 37, county = "*")
+NCgeo <- geo.make(state = "NC", county = "*")
 
 # Querying for income
 
@@ -45,7 +45,7 @@ medianincome_merged <- geo_join(tigcounties, medianincome_df, "GEOID", "GEOID")
 medianincome_merged <- medianincome_merged[medianincome_merged$ALAND > 0,]
 
 ## Map ----
-mappop <- paste0("GEOID: ", medianincome_merged$medianincome, "<br>", "Median Income: ", medianincome_merged$medianincome, "$")
+mappop <- paste0("GEOID: ", medianincome_merged$COUNTYNS, "<br>", "Median Income: ", medianincome_merged$medianincome, "$")
 pal <- colorNumeric(
   palette = "YlGnBu",
   domain = medianincome_df$medianincome
@@ -66,3 +66,4 @@ medianincomemap <- leaflet() %>%
             title = "Median Income",
             labFormat = labelFormat(suffix = "$"))
 medianincomemap
+
