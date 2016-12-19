@@ -10,7 +10,7 @@ library(rgdal)
 library(redist)
 library(rgeos)
 library(maptools)
-
+library(htmlwidgets)
 ## Import Data ----
 
 tract <- readOGR(dsn = ".", layer = "cb_2015_37_tract_500k")
@@ -95,3 +95,4 @@ LeafletMapIncome <- leaflet() %>%
               smoothFactor = .2,
               popup = Bubble)
 LeafletMapIncome
+saveWidget(LeafletMapIncome, file="LeafletMapIncome.html", selfcontained=FALSE)
